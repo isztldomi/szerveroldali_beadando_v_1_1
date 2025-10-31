@@ -57,3 +57,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Checklist
+
+[X] - Adatbázis és modellek 3 pont 
+[X] - Seeder 4 pont 
+[ ] - Főoldal (események listája) 2 pont 
+[ ] - Esemény megjelenítése 2 pont 
+[ ] - Jegy vásárlása 6 pont 
+[ ] - Megvásárolt jegyeim listája 2 pont 
+[ ] - Irányítópult 8 pont 
+[ ] - Esemény létrehozása 5 pont 
+[ ] - Esemény módosítása 5 pont 
+[ ] - Esemény törlése 2 pont 
+[ ] - Ülőhelyek létrehozása, módosítása és törlése 4 pont 
+[ ] - Jegykezelés 3 pont
