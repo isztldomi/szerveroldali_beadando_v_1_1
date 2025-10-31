@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Seat extends Model
@@ -29,5 +30,15 @@ class Seat extends Model
         return [
             'base_price' => 'integer',
         ];
+    }
+
+    /**
+     * Get all of the tickets for the Seat
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
     }
 }
