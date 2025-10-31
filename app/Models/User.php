@@ -46,4 +46,22 @@ class User extends Authenticatable
             'admin' => 'boolean',
         ];
     }
+
+    /**
+     * Get all of the tickets for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    /**
+     * Get admin entitlement for the User
+     */
+    public function isAdmin(): bool
+    {
+        return $this->admin;
+    }
 }
