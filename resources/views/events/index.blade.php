@@ -36,9 +36,12 @@
                             <p class="text-gray-600 mb-2">
                                 {{ $event->event_date_at?->format('Y. m. d. H:i') }}
                             </p>
+
+                            {{--
                             <p class="text-gray-700 mb-4 line-clamp-3">
                                 {{ Str::limit($event->description, 200) }}
                             </p>
+                            --}}
 
                             {{-- Szabad helyek kijelzése --}}
                             <div class="bg-gray-200 rounded-full h-4 mb-2">
