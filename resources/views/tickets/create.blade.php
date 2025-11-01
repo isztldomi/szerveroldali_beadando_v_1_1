@@ -11,10 +11,9 @@
                 <div class="p-6">
 
                     {{-- Esemény infó --}}
-                    <h3 class="text-lg font-semibold mb-2">{{ $event->title }}</h3>
-                    <p class="text-gray-600 mb-4">
-                        {{ $event->event_date_at?->format('Y. m. d. H:i') }}
-                    </p>
+                    <h3 class="text-2xl font-bold mb-2">{{ $event->title }}</h3>
+                    <p class="text-gray-600 mb-2">{{ $event->event_date_at?->format('Y. m. d. H:i') }}</p>
+                    <p class="mb-4">Még megvásárolható jegyek száma: {{ $event->max_number_allowed - $userTicketsCount }}</p>
 
 
                     {{-- Borítókép --}}
