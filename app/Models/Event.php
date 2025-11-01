@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
@@ -46,7 +47,7 @@ class Event extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tickets()
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }
@@ -56,5 +57,12 @@ class Event extends Model
         $totalSeats = Seat::count(); // minden szék az adott helyszínen
         $soldSeats = $this->tickets()->count();
         return max($totalSeats - $soldSeats, 0);
+    }
+
+    public function remainingSeats()
+    {
+        return Seat::whereDoesntHave('tickets', function ($query) {
+            $query->where('event_id', $this->id);
+        })->get();
     }
 }
