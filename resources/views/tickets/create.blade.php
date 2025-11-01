@@ -17,6 +17,7 @@
                     </p>
 
 
+                    {{-- Borítókép --}}
                     @if ($event->cover_image)
                         <img src="{{ asset('storage/' . $event->cover_image) }}"
                             alt="{{ $event->title }}"
@@ -37,11 +38,16 @@
                             <label for="seat_id" class="block text-sm font-medium text-gray-700">
                                 Válassz ülőhelyet
                             </label>
-                            <select id="seat_id" name="seat_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                @foreach ($availableSeats as $seat)
-                                    <option value="{{ $seat->id }}">{{ $seat->seat_number }} - {{ $seat->base_price }} Ft</option>
-                                @endforeach
-                            </select>
+                            <div id="availableSeats-container">
+                            @foreach ($availableSeats as $seat)
+                                <div class="seat-box border rounded-lg text-center p-2 cursor-pointer bg-white text-black"
+                                    data-seat-id="{{ $seat->id }}">
+                                    <span>{{ $seat->seat_number }}</span><br>
+                                    <span>{{ $seat->base_price }} Ft</span>
+                                    <input type="checkbox" name="seat_ids[]" value="{{ $seat->id }}" class="hidden">
+                                </div>
+                            @endforeach
+                    </div>
                         </div>
 
                         <div class="flex items-center gap-4">
