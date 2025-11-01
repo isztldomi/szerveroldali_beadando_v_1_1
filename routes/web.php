@@ -9,7 +9,6 @@ use App\Http\Controllers\TicketController;
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
-Route::resource('tickets', TicketController::class);
 #Route::get('/', function () {
 #    return view('welcome');
 #});

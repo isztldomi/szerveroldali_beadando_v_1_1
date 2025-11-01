@@ -36,6 +36,12 @@
                         </div>
                     @endif
 
+                    {{-- Leírás --}}
+                    <p class="text-gray-800 mb-6 leading-relaxed">
+                        {{ $event->description }}
+                    </p>
+
+
                     {{-- Jegyvásárló űrlap --}}
                     <form action="{{ route('tickets.store') }}" method="POST" class="space-y-6">
                         @csrf
@@ -64,8 +70,8 @@
                                 Jegyvásárlás
                             </button>
 
-                            <a href="{{ route('events.show', ['event' => $event->id]) }}"
-                                    class="bg-blue-600 text-black px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <a href="{{ route('events.show', $event) }}"
+                                class="bg-blue-600 text-black px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                                 Mégse
                             </a>
 

@@ -28,6 +28,11 @@
                 Időpont: {{ $event->event_date_at?->format('Y. m. d. H:i') }}
             </p>
 
+            {{-- Leírás --}}
+            <p class="text-gray-800 mb-6 leading-relaxed">
+                {{ $event->description }}
+            </p>
+
             {{-- Jegyek információ és gomb --}}
             @php
                 $total = \App\Models\Seat::count();
@@ -42,7 +47,7 @@
                 @if($remaining > 0)
                     @auth
                         <a href="{{ route('tickets.create', ['event' => $event->id]) }}"
-                           class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                           class="inline-block bg-blue-600 text-black px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
                             Jegyvásárlás
                         </a>
                     @else
