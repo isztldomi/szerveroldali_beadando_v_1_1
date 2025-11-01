@@ -50,4 +50,11 @@ class Event extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public function remainingSeatsCount()
+    {
+        $totalSeats = Seat::count(); // minden szék az adott helyszínen
+        $soldSeats = $this->tickets()->count();
+        return max($totalSeats - $soldSeats, 0);
+    }
 }
