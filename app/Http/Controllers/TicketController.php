@@ -23,9 +23,17 @@ class TicketController extends Controller
     {
         $availableSeats = $event->remainingSeats();
 
+        $user = auth()->user();
+
+        $userTicketsCount = $user ? $user->tickets()->where('event_id', $event->id)->count() : 0;
+
+        $remainingTicketsCount = $event->max_number_allowed - $userTicketsCount;
+
         return view('tickets.create', [
             'event' => $event,
             'availableSeats' => $availableSeats,
+            'remainingTicketsCount'  => $remainingTicketsCount,
+            'maxTicketsCount'   =>  $event->max_number_allowed,
         ]);
     }
 
