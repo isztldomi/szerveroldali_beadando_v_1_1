@@ -9,8 +9,8 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::where('start_time', '>', now())
-            ->orderBy('start_time', 'asc')
+        $events = Event::where('event_date_at', '>', now())
+            ->orderBy('event_date_at', 'asc')
             ->paginate(5);
 
         return view('events.index', compact('events'));
