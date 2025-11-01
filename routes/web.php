@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketController;
+
 
 
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
 
-
+Route::resource('tickets', TicketController::class);
 #Route::get('/', function () {
 #    return view('welcome');
 #});
