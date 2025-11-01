@@ -20,10 +20,12 @@
                     <div class="p-6 flex flex-col md:flex-row gap-6">
 
                         {{-- Borítókép --}}
-                        @if ($event->image)
-                            <img src="{{ $event->image }}" alt="{{ $event->title }}" class="w-full md:w-64 h-40 object-cover rounded-lg">
+                        @if ($event->cover_image)
+                            <img src="{{ asset('storage/' . $event->cover_image) }}"
+                                alt="{{ $event->title }}"
+                                class="w-[300px] h-[200px] object-cover rounded-lg mx-auto">
                         @else
-                            <div class="w-full md:w-64 h-40 bg-gray-200 flex items-center justify-center rounded-lg text-gray-500">
+                            <div class="w-[300px] h-[200px] bg-gray-200 flex items-center justify-center rounded-lg text-gray-500 mx-auto">
                                 Nincs kép
                             </div>
                         @endif
@@ -49,9 +51,9 @@
 
                             {{-- Részletek gomb --}}
                             <a href="{{ route('events.show', $event) }}"
-   class="inline-block bg-blue-200 text-black font-medium px-4 py-2 rounded-lg shadow hover:bg-blue-300 transition">
-    Részletek
-</a>
+                            class="inline-block bg-blue-200 text-black font-medium px-4 py-2 rounded-lg shadow hover:bg-blue-300 transition">
+                                Részletek
+                            </a>
                         </div>
                     </div>
                 </div>
