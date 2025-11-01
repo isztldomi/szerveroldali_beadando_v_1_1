@@ -57,7 +57,7 @@
                                 <div class="seat-box border rounded-lg text-center p-2 cursor-pointer bg-white text-black"
                                     data-seat-id="{{ $seat->id }}">
                                     <span>{{ $seat->seat_number }}</span><br>
-                                    <span>{{ $seat->base_price }} Ft</span>
+                                    <span>{{ $seat->dynamic_price }} Ft</span>
                                     <input type="checkbox" name="seat_ids[]" value="{{ $seat->id }}" class="hidden">
                                 </div>
                             @endforeach
@@ -95,7 +95,7 @@
 
             // Ha már elérted a max jegyszámot, ne engedje újabb kijelölését
             if (!checkbox.checked && selectedCount >= maxTickets) {
-                alert(`Csak ${maxTickets} jegyet választhatsz.`);
+                // alert(`Csak ${maxTickets} jegyet választhatsz.`);
                 return;
             }
 
