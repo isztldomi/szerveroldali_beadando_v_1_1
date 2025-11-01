@@ -20,6 +20,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     // Jegyvásárló oldal
     Route::get('/events/{event}/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+
 
     // Jegy mentése
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
