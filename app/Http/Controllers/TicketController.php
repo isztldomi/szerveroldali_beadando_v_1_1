@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\Seat;
 use App\Models\Ticket;
 
+use Carbon\Carbon;
+
 class TicketController extends Controller
 {
     /**
@@ -29,19 +31,9 @@ class TicketController extends Controller
         $remainingTicketsCount = $event->max_number_allowed - $userTicketsCount;
 
         if ($event->is_dynamic_price) {
-            $totalSeats = \App\Models\Seat::count();
-            $occupiedSeats = $event->tickets()->count();
-            $occupancy = $totalSeats > 0 ? $occupiedSeats / $totalSeats : 0;
-
-            $daysUntil = max(0, now()->diffInDays($event->event_date_at));
 
             foreach ($availableSeats as $seat) {
-                $basePrice = $seat->base_price;
-
-                // Dinamikus ár a megadott képlet szerint
-                $seat->dynamic_price = round(
-                    $basePrice * (1 - 0.5 * (1 / ($daysUntil + 1))) * (1 + 0.5 * $occupancy)
-                );
+                $seat->dynamic_price = $this->calculateDynamicPrice($event, $seat->id);
             }
         } else {
             foreach ($availableSeats as $seat) {
@@ -114,15 +106,60 @@ class TicketController extends Controller
     protected function calculateDynamicPrice(Event $event, $seatId)
     {
         $seat = Seat::findOrFail($seatId);
-        // Példa: dinamikus ár = alapár + eseményhez kötött extra
-        return $seat->base_price + rand(0, 1000);
+
+        // Alapár
+        $basePrice = $seat->base_price;
+
+        // Napok száma az eseményig
+        $daysUntil = Carbon::now()->diffInDays(Carbon::parse($event->event_date_at), false);
+        $daysUntil = max($daysUntil, 0); // negatív ne lehessen
+
+        // Foglaltság (Occupancy = foglalt / összes)
+        $totalSeats = Seat::count();
+        $bookedSeats = Ticket::where('event_id', $event->id)->count();
+
+        $occupancy = $totalSeats > 0 ? $bookedSeats / $totalSeats : 0;
+
+        // Dinamikus ár képlet alkalmazása
+        $price = $basePrice * (1 - 0.5 * (1 / ($daysUntil + 1))) * (1 + 0.5 * $occupancy);
+
+        return round($price);
     }
 
     // Segédfüggvény vonalkód generálásához
     protected function generateBarcode()
     {
-        return str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT);
+        do {
+            // 9 jegyű, 0-val feltöltött véletlenszám
+            $barcode = str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT);
+
+            $exists = Ticket::where('barcode', $barcode)->exists();
+
+        } while ($exists);
+
+        return $barcode;
     }
+
+    public function myTickets()
+    {
+        $user = auth()->user();
+
+        // lekérdezzük azokat az eseményeket, amikhez a felhasználónak van jegye
+        $eventIds = $user->tickets()->pluck('event_id')->unique()->toArray();
+
+        // Lekérdezzük ezeket az eseményeket
+        $events = Event::whereIn('id', $eventIds)->orderBy('event_date_at', 'asc')->get();
+
+        // Betöltjük az eseményenként a user saját jegyeit
+        foreach ($events as $event) {
+            $event->userTickets = $user->tickets()->where('event_id', $event->id)->get();
+        }
+
+        return view('tickets.my-tickets', [
+            'events' => $events,
+        ]);
+    }
+
 
     /**
      * Display the specified resource.
