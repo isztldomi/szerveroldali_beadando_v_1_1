@@ -148,7 +148,7 @@ class TicketController extends Controller
         $eventIds = $user->tickets()->pluck('event_id')->unique()->toArray();
 
         // Lekérdezzük ezeket az eseményeket
-        $events = Event::whereIn('id', $eventIds)->orderBy('event_date_at', 'asc')->get();
+        $events = Event::whereIn('id', $eventIds)->orderBy('event_date_at', 'desc')->get();
 
         // Betöltjük az eseményenként a user saját jegyeit
         foreach ($events as $event) {
