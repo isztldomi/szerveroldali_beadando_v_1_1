@@ -28,37 +28,30 @@ class DashboardController extends Controller
         $totalIncome = Ticket::sum('price');
 
         // 3 legnépszerűbb ülőhely (seat_number) és eladott jegyek száma
-        $topSeats = Ticket::select('seat_number', DB::raw('COUNT(*) as sold_count'))
-            ->groupBy('seat_number')
+        $topSeats = Ticket::select('seat_id', DB::raw('COUNT(*) as sold_count'))
+            ->groupBy('seat_id')
             ->orderByDesc('sold_count')
             ->limit(3)
+            ->with('seat:id,seat_number') // betölti a seat_number-t
             ->get();
 
 
         // Legfrissebb események, 5 per oldal
-        $events = Event::withCount(['tickets as sold_tickets_count' => function ($query) {
-            $query->where('sold', true); // vagy ahol eladott a logika
-        }])
-        ->withCount('tickets as total_tickets_count')
-        ->paginate(5);
+        $events = Event::with('tickets')->withCount('seats')->latest()->paginate(5);
 
-        // Eseményekhez számoljuk a bevételt
-        foreach ($events as $event) {
-            // eladott jegyek bevétele
-            $event->revenue = Ticket::where('event_id', $event->id)
-                                    ->where('sold', true)
-                                    ->sum('price');
+foreach ($events as $event) {
+    $event->sold_tickets_count = $event->tickets->count(); // eladott jegyek
+    $event->available_tickets = $event->seats_count - $event->sold_tickets_count; // szabad jegyek
+    $event->revenue = $event->tickets->sum('price'); // bevétel
+}
 
-            // szabad jegyek
-            $event->available_tickets = $event->total_tickets_count - $event->sold_tickets_count;
-        }
 
         return view('dashboard', [
             'totalEvents' => $totalEvents,
             'totalTickets' => $totalTickets,
             'totalIncome' =>$totalIncome,
             'topSeats' => $topSeats,
-            'events '=> $events
+            'events' => $events
         ]);
     }
 }
