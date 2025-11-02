@@ -9,15 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             @foreach ($events as $event)
-
+                <div class="mb-8">
                     <h3 class="text-2xl font-bold mb-2">{{ $event->title }}</h3>
                     <p class="text-gray-600 mb-4">{{ $event->event_date_at?->format('Y. m. d. H:i') }}</p>
 
-                    <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach ($event->userTickets as $ticket)
-                        <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0 space-y-6">
 
-                            <div class="bg-white shadow rounded-lg p-6 text-center">
+                            <div class="border rounded-xl p-4 shadow-sm bg-white">
                                 <p class="text-sm text-gray-500 mb-1">Vonalkód:</p>
                                 <div class="font-barcode text-3xl tracking-widest mb-2">
                                     <img src="data:image/png;base64,{{ $ticket->barcodeImage }}" alt="Barcode" class="mx-auto mb-2" />
@@ -28,9 +27,10 @@
                                     {{ $ticket->seat?->seat_number ?? 'N/A' }}
                                 </p>
                             </div>
-                        </div>
+
                         @endforeach
                     </div>
+                </div>
             @endforeach
 
         </div>
