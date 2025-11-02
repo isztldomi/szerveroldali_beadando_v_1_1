@@ -9,6 +9,35 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full sm:w-1/3 px-3 mb-6 sm:mb-0 space-y-6">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <a href=""
+                            class="inline-block bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
+                            Új esemény létrehozása
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full sm:w-1/3 px-3 mb-6 sm:mb-0 space-y-6">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <a href=""
+                            class="inline-block bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
+                            Ülőhelyek
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full sm:w-1/3 px-3 mb-6 sm:mb-0 space-y-6">
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <a href=""
+                            class="inline-block bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
+                            Jegykezelés
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap -mx-3 mb-6">
 
                 <!-- Bal oszlop: stat kártyák -->
                 <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-6">
@@ -43,7 +72,7 @@
                 <!-- Jobb oszlop: hosszabb elem -->
                 <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <div class="bg-white shadow rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-500 mb-4">Legfrissebb események</h3>
+                        <h3 class="text-lg font-medium text-gray-500 mb-4">Események</h3>
 
                         <ul class="divide-y divide-gray-200">
                             @foreach($events as $event)
@@ -65,6 +94,7 @@
                 </div>
 
             </div>
+
 
 
         </div>
