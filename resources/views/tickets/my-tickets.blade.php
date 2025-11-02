@@ -5,8 +5,33 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto py-10 px-4">
-        {{-- Eseménycsoport --}}
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+
+
+        @foreach ($events as $event)
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold mb-2">{{ $event->title }}</h3>
+                <p class="text-gray-600 mb-4">{{ $event->event_date_at?->format('Y. m. d. H:i') }}</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @foreach ($event->userTickets as $ticket)
+
+                        <div class="border rounded-xl p-4 shadow-sm bg-white">
+                            <p class="text-sm text-gray-500 mb-1">Vonalkód:</p>
+                            <div class="font-barcode text-3xl tracking-widest mb-2">|| ||| |||| ||| | ||</div>
+                            <p class="text-gray-700"># <strong>{{ $ticket->barcode }}</strong></p>
+                        </div>
+
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
+
+
+
+
+
+        {{-- Eseménycsoport
         <div class="mb-8">
             <h3 class="text-2xl font-bold mb-2">🎵 Coldplay koncert</h3>
             <p class="text-gray-600 mb-4">2025. június 14. 20:00</p>
@@ -26,7 +51,7 @@
             </div>
         </div>
 
-        {{-- Következő esemény --}}
+        {{-- Következő esemény
         <div class="mb-8">
             <h3 class="text-2xl font-bold mb-2">🎭 Hamlet előadás</h3>
             <p class="text-gray-600 mb-4">2025. szeptember 5. 19:00</p>
@@ -39,6 +64,7 @@
                 </div>
             </div>
         </div>
+        --}}
     </div>
 
     {{-- Ideiglenes barcode font hozzáadása --}}
