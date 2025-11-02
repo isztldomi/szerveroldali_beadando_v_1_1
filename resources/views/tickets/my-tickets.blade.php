@@ -18,8 +18,14 @@
 
                         <div class="border rounded-xl p-4 shadow-sm bg-white">
                             <p class="text-sm text-gray-500 mb-1">Vonalkód:</p>
-                            <div class="font-barcode text-3xl tracking-widest mb-2">|| ||| |||| ||| | ||</div>
+                            <div class="font-barcode text-3xl tracking-widest mb-2">
+                                <img src="data:image/png;base64,{{ $ticket->barcodeImage }}" alt="Barcode" class="mx-auto mb-2" />
+                            </div>
                             <p class="text-gray-700"># <strong>{{ $ticket->barcode }}</strong></p>
+                            <p class="text-sm text-gray-500 mb-1">Ülőhely:</p>
+                            <p class="text-lg font-semibold mb-3">
+                                {{ $ticket->seat?->seat_number ?? 'N/A' }}
+                            </p>
                         </div>
 
                     @endforeach

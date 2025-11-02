@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Seat;
 use App\Models\Ticket;
-
 use Carbon\Carbon;
+use Milon\Barcode\DNS1D;
 
 class TicketController extends Controller
 {
@@ -152,7 +152,22 @@ class TicketController extends Controller
 
         // Betöltjük az eseményenként a user saját jegyeit
         foreach ($events as $event) {
-            $event->userTickets = $user->tickets()->where('event_id', $event->id)->get();
+            $event->userTickets = $user->tickets()
+                ->where('event_id', $event->id)
+                ->with('seat')
+                ->get()
+                ->sortBy(function ($ticket) {
+                    return $ticket->seat->seat_number;
+                })
+                ->map(function ($ticket) {
+                    $barcode = new DNS1D();
+                    $barcode->setStorPath(storage_path('framework/barcodes/'));
+
+                    // base64-es PNG kép generálása
+                    $ticket->barcodeImage = $barcode->getBarcodePNG($ticket->barcode, 'C128');
+
+                    return $ticket;
+                });
         }
 
         return view('tickets.my-tickets', [
