@@ -71,7 +71,7 @@
                 @endauth
 
                 @guest
-                    <div class="space-x-4">
+                    <div class="flex space-x-8">
                         <a href="{{ route('login') }}" class="text-sm text-gray-700">Bejelentkezés</a>
                         <a href="{{ route('register') }}" class="text-sm text-gray-700">Regisztráció</a>
                     </div>
