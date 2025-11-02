@@ -107,7 +107,7 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect()->route('events.show', $event)->with('success', 'Jegyek sikeresen lefoglalva!');
+        return redirect()->route('tickets.my')->with('success', 'Jegyek sikeresen lefoglalva!');
     }
 
     // Segédfüggvény dinamikus árhoz
