@@ -47,21 +47,17 @@
 
                         <ul class="divide-y divide-gray-200">
                             @foreach($events as $event)
-                                <li class="py-4 flex justify-between items-center">
-                                    <div>
-                                        <p class="font-semibold text-gray-900">{{ $event->name }}</p>
-                                        <p class="text-gray-500 text-sm">
-                                            Szabad jegyek: {{ $event->available_tickets }} |
-                                            Bevétel: {{ number_format($event->revenue, 0, ',', ' ') }} Ft
-                                        </p>
-                                    </div>
-                                    <div class="text-gray-400 text-sm">
-                                        {{ $event->created_at->format('Y-m-d') }}
-                                    </div>
+                                <li class="py-4">
+                                    <p class="font-semibold text-gray-900">{{ $event->title }}</p>
+                                    <p class="text-gray-500 text-sm">
+                                        Szabad jegyek: {{ $event->available_tickets }} / {{ $totalSeats }} |
+                                        Bevétel: {{ number_format($event->revenue, 0, ',', ' ') }} Ft
+                                    </p>
                                 </li>
                             @endforeach
                         </ul>
 
+                        <!-- Lapozó linkek -->
                         <div class="mt-4">
                             {{ $events->links() }}
                         </div>
