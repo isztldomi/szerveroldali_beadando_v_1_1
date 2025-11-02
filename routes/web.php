@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/{event}/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
+    // Megvásárolt jegyeim
+    Route::get('/my-tickets', function () {
+        return view('tickets.my-tickets');
+    })->name('tickets.my');
 
     // Jegy mentése
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
