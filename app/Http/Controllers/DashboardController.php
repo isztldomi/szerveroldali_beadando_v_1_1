@@ -11,20 +11,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // itt tartok
         $user = auth()->user();
 
         if (!$user->isAdmin()) {
-            // Ha nem admin, vissza a főoldalra
             return redirect('/');
         }
-        // Összes esemény
+
         $totalEvents = Event::count();
 
-        // Összes eladott jegy
         $totalTickets = Ticket::count();
 
-        // Összes bevétel
         $totalIncome = Ticket::sum('price');
 
         // 3 legnépszerűbb ülőhely (seat_number) és eladott jegyek száma
@@ -37,21 +33,35 @@ class DashboardController extends Controller
 
 
         // Legfrissebb események, 5 per oldal
-        $events = Event::with('tickets')->withCount('seats')->latest()->paginate(5);
+        $events = DB::table('events')
+            ->select('id', 'title')
+            ->orderByDesc('event_date_at', 'desc')
+            ->paginate(5);
 
-foreach ($events as $event) {
-    $event->sold_tickets_count = $event->tickets->count(); // eladott jegyek
-    $event->available_tickets = $event->seats_count - $event->sold_tickets_count; // szabad jegyek
-    $event->revenue = $event->tickets->sum('price'); // bevétel
-}
+        $total_seats = DB::table('seats')->count();
 
+        foreach ($events as $event) {
+            // eladott jegyek száma
+            $event->sold_tickets_count = DB::table('tickets')
+                ->where('event_id', $event->id)
+                ->count();
+
+            // szabad jegyek
+            $event->available_tickets = $total_seats - $event->sold_tickets_count;
+
+            // bevétel
+            $event->revenue = DB::table('tickets')
+                ->where('event_id', $event->id)
+                ->sum('price');
+        }
 
         return view('dashboard', [
             'totalEvents' => $totalEvents,
             'totalTickets' => $totalTickets,
             'totalIncome' =>$totalIncome,
             'topSeats' => $topSeats,
-            'events' => $events
+            'events' => $events,
+            'totalSeats' => $total_seats,
         ]);
     }
 }
