@@ -12,15 +12,20 @@
 
                 <!-- Navigációs linkek -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('Irányítópult') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
+
                     <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                         {{ __('Események') }}
                     </x-nav-link>
 
                     @auth
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Irányítópult') }}
-                        </x-nav-link>
-
                         <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
                             {{ __('Megvásárolt jegyeim') }}
                         </x-nav-link>
@@ -93,16 +98,20 @@
     <!-- Mobilmenü -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Irányítópult') }}
+                    </x-nav-link>
+                @endif
+            @endauth
+
             <x-responsive-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                 {{ __('Események') }}
             </x-responsive-nav-link>
 
             @auth
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Irányítópult') }}
-                </x-responsive-nav-link>
-
-
                 <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
                     {{ __('Megvásárolt jegyeim') }}
                 </x-nav-link>
