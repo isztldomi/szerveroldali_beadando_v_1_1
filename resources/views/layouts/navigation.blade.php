@@ -20,6 +20,10 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Irányítópult') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
+                            {{ __('Megvásárolt jegyeim') }}
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -97,6 +101,11 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Irányítópult') }}
                 </x-responsive-nav-link>
+
+
+                <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
+                    {{ __('Megvásárolt jegyeim') }}
+                </x-nav-link>
             @endauth
         </div>
 
