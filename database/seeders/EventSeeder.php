@@ -44,6 +44,6 @@ class EventSeeder extends Seeder
             'cover_image' => 'event_covers/coldplay_small.png',
         ]);
 
-        Event::factory()->count(11)->create();
+        Event::factory()->count(21)->create();
     }
 }

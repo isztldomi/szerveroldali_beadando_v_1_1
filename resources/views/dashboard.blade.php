@@ -90,7 +90,9 @@
                                         <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
                                             <p class="font-semibold text-gray-900">{{ $event->title }}</p>
                                             <p class="text-gray-500 text-sm">
-                                                Szabad jegyek: {{ $event->available_tickets }} / {{ $totalSeats }} |
+                                                Szabad jegyek: {{ $event->available_tickets }} / {{ $totalSeats }}
+                                            </p>
+                                            <p class="text-gray-500 text-sm">
                                                 Bevétel: {{ number_format($event->revenue, 0, ',', ' ') }} Ft
                                             </p>
                                         </div>
