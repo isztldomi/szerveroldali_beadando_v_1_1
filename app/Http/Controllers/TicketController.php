@@ -8,6 +8,7 @@ use App\Models\Seat;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use Milon\Barcode\DNS1D;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TicketController extends Controller
 {
@@ -64,14 +65,24 @@ class TicketController extends Controller
                 ->withErrors('A jegyvásárlás már lezárult.');
         }
 
-        $availableSeats = $event->remainingSeats();
+        // Lapozható elérhető székek (pl. 10 szék / oldal)
+        $availableSeatsCollection = $event->remainingSeats(); // Collection
+$perPage = 10;
+$page = request()->get('page', 1);
+
+$availableSeats = new LengthAwarePaginator(
+    $availableSeatsCollection->forPage($page, $perPage),
+    $availableSeatsCollection->count(),
+    $perPage,
+    $page,
+    ['path' => request()->url(), 'query' => request()->query()]
+);
 
         $user = auth()->user();
         $userTicketsCount = $user ? $user->tickets()->where('event_id', $event->id)->count() : 0;
         $remainingTicketsCount = $event->max_number_allowed - $userTicketsCount;
 
         if ($event->is_dynamic_price) {
-
             foreach ($availableSeats as $seat) {
                 $seat->dynamic_price = $this->calculateDynamicPrice($event, $seat->id);
             }
@@ -88,6 +99,7 @@ class TicketController extends Controller
             'maxTicketsCount'   =>  $event->max_number_allowed,
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
