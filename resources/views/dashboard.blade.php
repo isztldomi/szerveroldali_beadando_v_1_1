@@ -6,8 +6,15 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
+            @if (session('success'))
+                <div class="bg-white shadow rounded-lg p-6">
+                    <span style="color: #15803d; font-weight: 600;">
+                        <strong>{{ session('success') }}</strong>
+                    </span>
+                </div>
+            @endif
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full sm:w-1/3 px-3 mb-6 sm:mb-0 space-y-6">
                     <a href="{{ route('events.create') }}">

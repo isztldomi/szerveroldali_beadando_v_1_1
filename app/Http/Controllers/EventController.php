@@ -76,7 +76,7 @@ class EventController extends Controller
             'cover_image' => $validated['cover_image'] ?? null,
         ]);
 
-        return redirect()->route('events.index')->with('success', 'Az esemény sikeresen létrehozva!');
+        return redirect()->route('dashboard')->with('success', 'Az esemény sikeresen létrehozva!');
     }
 
     public function edit($id)
@@ -93,4 +93,27 @@ class EventController extends Controller
             'event' => $event,
         ]);
     }
+
+    public function update(Request $request, Event $event)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'event_date_at' => 'required|date|after:now',
+            'sale_start_at' => 'required|date|before:sale_end_at',
+            'sale_end_at' => 'required|date|after:sale_start_at|before:event_date_at',
+            'is_dynamic_price' => 'nullable|boolean',
+            'max_number_allowed' => 'required|integer|min:1',
+            'cover_image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('cover_image')) {
+            $validated['cover_image'] = $request->file('cover_image')->store('event_covers', 'public');
+        }
+
+        $event->update($validated);
+
+        return redirect()->route('events.edit', $event->id)->with('success', 'Az esemény sikeresen módosítva!');
+    }
+
 }
