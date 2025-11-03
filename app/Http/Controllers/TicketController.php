@@ -182,6 +182,17 @@ class TicketController extends Controller
         return $barcode;
     }
 
+    public function admission()
+    {
+        $user = auth()->user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->withErrors('Nincs jogosultságod székek törléséhez.');
+        }
+
+        return view('tickets.admission');
+    }
+
     /**
      * Display the specified resource.
      */
