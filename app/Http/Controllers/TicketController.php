@@ -193,6 +193,38 @@ class TicketController extends Controller
         return view('tickets.admission');
     }
 
+    public function check(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->with('error', 'Nincs jogosultságod.');
+        }
+
+        $request->validate([
+            'barcode' => 'required|string|exists:tickets,barcode',
+        ], [
+            'barcode.required' => 'A vonalkód megadása kötelező.',
+            'barcode.exists' => 'Ez a jegy nem létezik.',
+        ]);
+
+        $ticket = Ticket::where('barcode', $request->barcode)->first();
+
+        if (!$ticket) {
+            return redirect()->back()->withErrors(['barcode' => 'Ez a jegy nem létezik.']);
+        }
+
+        if ($ticket->admission_time) {
+            return redirect()->back()->withErrors([
+                'barcode' => "A jegy már be lett olvasva: " . $ticket->admission_time->format('Y-m-d H:i:s')
+            ]);
+        }
+
+        $ticket->admission_time = now();
+        $ticket->save();
+
+        return redirect()->back()->with('success', 'Jegy sikeresen beolvasva!');
+    }
+
     /**
      * Display the specified resource.
      */
