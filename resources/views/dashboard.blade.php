@@ -79,12 +79,35 @@
 
                         <ul class="divide-y divide-gray-200">
                             @foreach($events as $event)
-                                <li class="py-4">
-                                    <p class="font-semibold text-gray-900">{{ $event->title }}</p>
-                                    <p class="text-gray-500 text-sm">
-                                        Szabad jegyek: {{ $event->available_tickets }} / {{ $totalSeats }} |
-                                        Bevétel: {{ number_format($event->revenue, 0, ',', ' ') }} Ft
-                                    </p>
+                                <li>
+                                    <div class="flex flex-wrap -mx-3 mb-6">
+
+                                        <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
+                                            <p class="font-semibold text-gray-900">{{ $event->title }}</p>
+                                            <p class="text-gray-500 text-sm">
+                                                Szabad jegyek: {{ $event->available_tickets }} / {{ $totalSeats }} |
+                                                Bevétel: {{ number_format($event->revenue, 0, ',', ' ') }} Ft
+                                            </p>
+                                        </div>
+
+                                        <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
+                                            <a href="" {{-- {{ route('events.edit', $event->id) }} --}}
+                                            class="inline-flex items-center px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-black text-sm font-medium rounded-lg shadow">
+                                                Módosítás
+                                            </a>
+
+                                            <form action="" method="POST" {{-- {{ route('events.destroy', $event->id) }} --}}
+                                                onsubmit="return confirm('Biztosan törölni szeretnéd az eseményt?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 text-black text-sm font-medium rounded-lg shadow">
+                                                    Törlés
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
