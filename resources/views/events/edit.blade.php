@@ -33,7 +33,7 @@
 
                 <div class="flex flex-wrap -mx-3">
                     <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-6">
-                        <!-- Cím -->
+
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="title" class="block text-sm font-medium text-gray-700">Cím</label>
                             <input type="text" name="title" id="title"
@@ -42,7 +42,6 @@
                                 required>
                         </div>
 
-                        <!-- Leírás -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="description" class="block text-sm font-medium text-gray-700">Leírás</label>
                             <textarea name="description" id="description" rows="4"
@@ -50,7 +49,6 @@
                                 required>{{ old('description', $event->description) }}</textarea>
                         </div>
 
-                        <!-- Dinamikus árképzés -->
                         <div class="bg-white shadow rounded-lg p-6 flex items-center {{ $isSaleStarted ? 'opacity-70' : '' }}">
                             <input type="checkbox" name="is_dynamic_price" id="is_dynamic_price" value="1"
                                 {{ old('is_dynamic_price', $event->is_dynamic_price) ? 'checked' : '' }}
@@ -61,11 +59,8 @@
                             </label>
                         </div>
 
-                        <!-- Borítókép -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="cover_image" class="block text-sm font-medium text-gray-700 mb-2">Borítókép</label>
-
-                            {{-- Ha már van feltöltött kép --}}
                             @if($event->cover_image)
                                 <div class="mb-4">
                                     <p class="text-gray-600 text-sm mb-2">Jelenlegi borítókép:</p>
@@ -81,7 +76,7 @@
                     </div>
 
                     <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-6">
-                        <!-- Jegyeladás kezdete -->
+
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="sale_start_at" class="block text-sm font-medium text-gray-700">Jegyeladás kezdete</label>
                             <input type="datetime-local" name="sale_start_at" id="sale_start_at"
@@ -90,7 +85,6 @@
                                 {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
-                        <!-- Jegyeladás vége -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="sale_end_at" class="block text-sm font-medium text-gray-700">Jegyeladás vége</label>
                             <input type="datetime-local" name="sale_end_at" id="sale_end_at"
@@ -99,7 +93,6 @@
                                 {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
-                        <!-- Esemény dátuma -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="event_date_at" class="block text-sm font-medium text-gray-700">Esemény dátuma</label>
                             <input type="datetime-local" name="event_date_at" id="event_date_at"
@@ -108,7 +101,6 @@
                                 {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
-                        <!-- Maximálisan vásárolható jegyek száma -->
                         <div class="bg-white shadow rounded-lg p-6">
                             <label for="max_number_allowed" class="block text-sm font-medium text-gray-700">Maximálisan vásárolható jegyek száma</label>
                             <input type="number" name="max_number_allowed" id="max_number_allowed"
@@ -118,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                    <!-- Gomb -->
+
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <button type="submit"
                             class="bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
