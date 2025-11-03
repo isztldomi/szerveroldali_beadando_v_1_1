@@ -31,13 +31,6 @@
                 @csrf
                 @method('PUT')
 
-
-
-
-
-
-
-
                 <div class="flex flex-wrap -mx-3">
                     <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-6">
                         <!-- Cím -->
@@ -125,57 +118,7 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <!-- Gomb -->
-
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <button type="submit"
                             class="bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
