@@ -36,7 +36,9 @@
                     <label for="barcode" class="block text-sm font-medium text-gray-700">Jegy vonalkód</label>
                     <input type="text" name="barcode" id="barcode"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                        placeholder="Írd be a jegy vonalkódját..." required>
+                        placeholder="Írd be a jegy vonalkódját..."
+                        value="{{ old('barcode') }}"
+                        required>
                     <button type="submit"
                         class="mt-4 bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
                         Beolvasás
