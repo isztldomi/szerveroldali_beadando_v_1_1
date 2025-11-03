@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/dashboard/events/store', [EventController::class, 'store'])->name('events.store');
+    Route::get('/dashboard/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit');
 
     // Profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

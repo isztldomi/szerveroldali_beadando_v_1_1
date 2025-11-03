@@ -91,7 +91,7 @@
                                         </div>
 
                                         <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
-                                            <a href="" {{-- {{ route('events.edit', $event->id) }} --}}
+                                            <a href="{{ route('events.edit', $event->id) }}"
                                             class="inline-flex items-center px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-black text-sm font-medium rounded-lg shadow">
                                                 Módosítás
                                             </a>

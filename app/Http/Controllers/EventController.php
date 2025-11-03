@@ -45,7 +45,6 @@ class EventController extends Controller
             return redirect('/')->with('error', 'Nincs jogosultságod eseményt létrehozni.');
         }
 
-        // ✅ 1. Validáció (Laravel automatikusan visszadob hibánál)
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -62,12 +61,10 @@ class EventController extends Controller
             'event_date_at.after' => 'Az esemény dátumának a mai nap után kell lennie.',
         ]);
 
-        // ✅ 2. Kép mentése, ha van
         if ($request->hasFile('cover_image')) {
             $validated['cover_image'] = $request->file('cover_image')->store('event_covers', 'public');
         }
 
-        // ✅ 3. Esemény létrehozása
         Event::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -79,7 +76,21 @@ class EventController extends Controller
             'cover_image' => $validated['cover_image'] ?? null,
         ]);
 
-        // ✅ 4. Sikeres üzenet és redirect
         return redirect()->route('events.index')->with('success', 'Az esemény sikeresen létrehozva!');
+    }
+
+    public function edit($id)
+    {
+        $user = auth()->user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->with('error', 'Nincs jogosultságod szerkeszteni.');
+        }
+
+        $event = Event::findOrFail($id);
+
+        return view('events.edit', [
+            'event' => $event,
+        ]);
     }
 }
