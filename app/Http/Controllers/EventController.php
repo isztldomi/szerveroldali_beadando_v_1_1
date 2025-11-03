@@ -107,45 +107,66 @@ class EventController extends Controller
 
         $event = Event::findOrFail($id);
 
+        $isSaleStarted = now()->greaterThanOrEqualTo($event->sale_start_at);
+
         return view('events.edit', [
             'event' => $event,
+            'isSaleStarted' => $isSaleStarted,
         ]);
     }
 
     public function update(Request $request, Event $event)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'event_date_at' => 'required|date|after:now',
-            'sale_start_at' => 'required|date|before:sale_end_at',
-            'sale_end_at' => 'required|date|after:sale_start_at|before:event_date_at',
-            'is_dynamic_price' => 'nullable|boolean',
-            'max_number_allowed' => 'required|integer|min:1',
-            'cover_image' => 'nullable|image|max:2048',
-        ], [
-            'title.required' => 'A cím megadása kötelező.',
-            'title.string' => 'A cím csak szöveg lehet.',
-            'title.max' => 'A cím legfeljebb 255 karakter lehet.',
-            'description.required' => 'A leírás megadása kötelező.',
-            'description.string' => 'A leírás csak szöveg lehet.',
-            'event_date_at.required' => 'Az esemény dátumát kötelező megadni.',
-            'event_date_at.date' => 'Az esemény dátuma érvényes dátum kell legyen.',
-            'event_date_at.after' => 'Az esemény dátumának a mai nap után kell lennie.',
-            'sale_start_at.required' => 'A jegyeladás kezdő dátumát kötelező megadni.',
-            'sale_start_at.date' => 'A jegyeladás kezdete érvényes dátum kell legyen.',
-            'sale_start_at.before' => 'A jegyeladás kezdete nem lehet később, mint a vége.',
-            'sale_end_at.required' => 'A jegyeladás záró dátumát kötelező megadni.',
-            'sale_end_at.date' => 'A jegyeladás vége érvényes dátum kell legyen.',
-            'sale_end_at.after' => 'A jegyeladás vége nem lehet korábban, mint a kezdete.',
-            'sale_end_at.before' => 'A jegyeladás vége nem lehet az esemény után.',
-            'is_dynamic_price.boolean' => 'A dinamikus árképzés mező csak igaz/hamis értéket kaphat.',
-            'max_number_allowed.required' => 'A maximálisan vásárolható jegyek számát kötelező megadni.',
-            'max_number_allowed.integer' => 'A maximálisan vásárolható jegyek száma csak egész szám lehet.',
-            'max_number_allowed.min' => 'Legalább 1 jegyet engedélyezni kell.',
-            'cover_image.image' => 'A borítóképnek kép típusúnak kell lennie.',
-            'cover_image.max' => 'A borítókép mérete nem haladhatja meg a 2 MB-ot.',
-        ]);
+        $isSaleStarted = now()->greaterThanOrEqualTo($event->sale_start_at);
+
+        if ($isSaleStarted) {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'cover_image' => 'nullable|image|max:2048',
+            ], [
+                'title.required' => 'A cím megadása kötelező.',
+                'title.string' => 'A cím csak szöveg lehet.',
+                'title.max' => 'A cím legfeljebb 255 karakter lehet.',
+                'description.required' => 'A leírás megadása kötelező.',
+                'description.string' => 'A leírás csak szöveg lehet.',
+                'cover_image.image' => 'A borítóképnek kép típusúnak kell lennie.',
+                'cover_image.max' => 'A borítókép mérete nem haladhatja meg a 2 MB-ot.',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'event_date_at' => 'required|date|after:now',
+                'sale_start_at' => 'required|date|before:sale_end_at',
+                'sale_end_at' => 'required|date|after:sale_start_at|before:event_date_at',
+                'is_dynamic_price' => 'nullable|boolean',
+                'max_number_allowed' => 'required|integer|min:1',
+                'cover_image' => 'nullable|image|max:2048',
+            ], [
+                'title.required' => 'A cím megadása kötelező.',
+                'title.string' => 'A cím csak szöveg lehet.',
+                'title.max' => 'A cím legfeljebb 255 karakter lehet.',
+                'description.required' => 'A leírás megadása kötelező.',
+                'description.string' => 'A leírás csak szöveg lehet.',
+                'event_date_at.required' => 'Az esemény dátumát kötelező megadni.',
+                'event_date_at.date' => 'Az esemény dátuma érvényes dátum kell legyen.',
+                'event_date_at.after' => 'Az esemény dátumának a mai nap után kell lennie.',
+                'sale_start_at.required' => 'A jegyeladás kezdő dátumát kötelező megadni.',
+                'sale_start_at.date' => 'A jegyeladás kezdete érvényes dátum kell legyen.',
+                'sale_start_at.before' => 'A jegyeladás kezdete nem lehet később, mint a vége.',
+                'sale_end_at.required' => 'A jegyeladás záró dátumát kötelező megadni.',
+                'sale_end_at.date' => 'A jegyeladás vége érvényes dátum kell legyen.',
+                'sale_end_at.after' => 'A jegyeladás vége nem lehet korábban, mint a kezdete.',
+                'sale_end_at.before' => 'A jegyeladás vége nem lehet az esemény után.',
+                'is_dynamic_price.boolean' => 'A dinamikus árképzés mező csak igaz/hamis értéket kaphat.',
+                'max_number_allowed.required' => 'A maximálisan vásárolható jegyek számát kötelező megadni.',
+                'max_number_allowed.integer' => 'A maximálisan vásárolható jegyek száma csak egész szám lehet.',
+                'max_number_allowed.min' => 'Legalább 1 jegyet engedélyezni kell.',
+                'cover_image.image' => 'A borítóképnek kép típusúnak kell lennie.',
+                'cover_image.max' => 'A borítókép mérete nem haladhatja meg a 2 MB-ot.',
+            ]);
+        }
 
         if ($request->hasFile('cover_image')) {
             $validated['cover_image'] = $request->file('cover_image')->store('event_covers', 'public');
