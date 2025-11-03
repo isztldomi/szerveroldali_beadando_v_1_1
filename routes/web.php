@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/events/create', [EventController::class, 'create'])->name('events.create');
-    Route::get('/dashboard/events/store', [EventController::class, 'store'])->name('events.store');
+    Route::post('/dashboard/events/store', [EventController::class, 'store'])->name('events.store');
 
     // Profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
