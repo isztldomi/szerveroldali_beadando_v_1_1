@@ -8,6 +8,28 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
+
+            @if (session('success'))
+                <div class="bg-white shadow rounded-lg p-6">
+                    <span style="color: #15803d; font-weight: 600;">
+                        <strong>{{ session('success') }}</strong>
+                    </span>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="bg-white shadow rounded-lg p-6">
+                    <strong>Hiba történt:</strong>
+                    <ul class="mt-2 list-disc list-inside text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                <span style="color: #b91c1c; font-weight: 600;">{{ $error }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @forelse ($events as $event)
                 @php
                     // Számoljuk a szabad helyeket

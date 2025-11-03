@@ -55,13 +55,13 @@ class TicketController extends Controller
         if ($now->lt($event->sale_start_at)) {
             return redirect()
                 ->route('events.show', $event->id)
-                ->with('error', 'A jegyvásárlás még nem kezdődött el.');
+                ->withErrors('A jegyvásárlás még nem kezdődött el.');
         }
 
         if ($now->gt($event->sale_end_at)) {
             return redirect()
                 ->route('events.show', $event->id)
-                ->with('error', 'A jegyvásárlás már lezárult.');
+                ->withErrors('A jegyvásárlás már lezárult.');
         }
 
         $availableSeats = $event->remainingSeats();

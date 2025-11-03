@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/dashboard/events/update/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/dashboard/events/delete/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::get('/dashboard/seats', [SeatController::class, 'index'])->name('seats.index');
+    Route::put('/dashboard/seats/update/{id}', [SeatController::class, 'update'])->name('seats.update');
+    Route::delete('/dashboard/seats/delete/{id}', [SeatController::class, 'destroy'])->name('seats.destroy');
 
 
 
