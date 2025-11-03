@@ -48,19 +48,19 @@
                                 Válassz ülőhelyet
                             </label>
                             <div id="availableSeats-container" class="grid grid-cols-5 gap-4">
-    @foreach ($availableSeats as $seat)
-        <div class="seat-box border rounded-lg text-center p-2 cursor-pointer bg-white text-black"
-             data-seat-id="{{ $seat->id }}">
-            <span>{{ $seat->seat_number }}</span><br>
-            <span>{{ $seat->dynamic_price }} Ft</span>
-            <input type="checkbox" name="seat_ids[]" value="{{ $seat->id }}" class="hidden">
-        </div>
-    @endforeach
-</div>
+                                @foreach ($availableSeats as $seat)
+                                    <div class="seat-box border rounded-lg text-center p-2 cursor-pointer bg-white text-black"
+                                        data-seat-id="{{ $seat->id }}">
+                                        <span>{{ $seat->seat_number }}</span><br>
+                                        <span>{{ $seat->dynamic_price }} Ft</span>
+                                        <input type="checkbox" name="seat_ids[]" value="{{ $seat->id }}" class="hidden">
+                                    </div>
+                                @endforeach
+                            </div>
 
-<div class="mt-4">
-    {{ $availableSeats->links() }}
-</div>
+                            <div class="mt-4">
+                                {{ $availableSeats->links() }}
+                            </div>
                         </div>
 
                         <div class="flex items-center gap-4">

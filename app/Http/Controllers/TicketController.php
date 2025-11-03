@@ -65,18 +65,17 @@ class TicketController extends Controller
                 ->withErrors('A jegyvásárlás már lezárult.');
         }
 
-        // Lapozható elérhető székek (pl. 10 szék / oldal)
-        $availableSeatsCollection = $event->remainingSeats(); // Collection
-$perPage = 10;
-$page = request()->get('page', 1);
+        $availableSeatsCollection = $event->remainingSeats();
+        $perPage = 10;
+        $page = request()->get('page', 1);
 
-$availableSeats = new LengthAwarePaginator(
-    $availableSeatsCollection->forPage($page, $perPage),
-    $availableSeatsCollection->count(),
-    $perPage,
-    $page,
-    ['path' => request()->url(), 'query' => request()->query()]
-);
+        $availableSeats = new LengthAwarePaginator(
+            $availableSeatsCollection->forPage($page, $perPage),
+            $availableSeatsCollection->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         $user = auth()->user();
         $userTicketsCount = $user ? $user->tickets()->where('event_id', $event->id)->count() : 0;
