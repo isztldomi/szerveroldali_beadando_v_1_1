@@ -41,7 +41,6 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 flex flex-col md:flex-row gap-6">
 
-                        {{-- Borítókép --}}
                         @if ($event->cover_image)
                             <img src="{{ asset('storage/' . $event->cover_image) }}"
                                 alt="{{ $event->title }}"
@@ -52,20 +51,12 @@
                             </div>
                         @endif
 
-                        {{-- Esemény adatai --}}
                         <div class="flex-1">
                             <h2 class="text-2xl font-semibold mb-2">{{ $event->title }}</h2>
                             <p class="text-gray-600 mb-2">
-                                {{ $event->event_date_at?->format('Y. m. d. H:i') }}
+                                {{ $event->event_date_at->format('Y. m. d. H:i') }}
                             </p>
 
-                            {{--
-                            <p class="text-gray-700 mb-4 line-clamp-3">
-                                {{ Str::limit($event->description, 200) }}
-                            </p>
-                            --}}
-
-                            {{-- Szabad helyek kijelzése --}}
                             <div class="bg-gray-200 rounded-full h-4 mb-2">
                                 <div class="bg-green-500 h-4 rounded-full transition-all duration-300"
                                      style="width: {{ $percent }}%;"></div>
@@ -74,7 +65,6 @@
                                 Szabad helyek: {{ $remaining }} / {{ $total }} ({{ $percent }}%)
                             </p>
 
-                            {{-- Részletek gomb --}}
                             <a href="{{ route('events.show', $event) }}"
                             class="inline-block bg-blue-200 text-black font-medium px-4 py-2 rounded-lg shadow hover:bg-blue-300 transition">
                                 Részletek
@@ -86,7 +76,6 @@
                 <p class="text-gray-500 text-center mt-8">Nincs elérhető jövőbeli esemény.</p>
             @endforelse
 
-            {{-- Lapozás --}}
             <div class="mt-6">
                 {{ $events->links() }}
             </div>

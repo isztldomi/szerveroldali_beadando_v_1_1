@@ -49,7 +49,6 @@
 
             <div class="flex flex-wrap -mx-3 mb-6">
 
-                <!-- Bal oszlop: stat kártyák -->
                 <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-6">
                     <div class="bg-white shadow rounded-lg p-6 text-center">
                         <h3 class="text-lg font-medium text-gray-500">Összes esemény</h3>
@@ -79,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Jobb oszlop: hosszabb elem -->
                 <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0">
                     <div class="bg-white shadow rounded-lg p-6">
                         <h3 class="text-lg font-medium text-gray-500 mb-4">Események</h3>
@@ -106,7 +104,7 @@
 
 
                                             @if ($event->is_deletable)
-                                                <form action="{{ route('events.destroy', $event->id) }}" method="POST"> {{-- onsubmit="return confirm('Biztosan törölni szeretnéd az eseményt?');"> --}}
+                                                <form action="{{ route('events.destroy', $event->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -123,7 +121,6 @@
                             @endforeach
                         </ul>
 
-                        <!-- Lapozó linkek -->
                         <div class="mt-4">
                             {{ $events->links() }}
                         </div>

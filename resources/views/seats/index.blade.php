@@ -41,7 +41,7 @@
 
                                 <span>
                                     @if ($seat->deletable)
-                                        <form action="{{ route('seats.destroy', $seat->id) }}" method="POST"> {{-- onsubmit="return confirm('Biztosan törölni szeretnéd a székett?');"> --}}
+                                        <form action="{{ route('seats.destroy', $seat->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-500 hover:bg-red-600 text-black px-3 rounded">
@@ -56,19 +56,16 @@
                         @endforeach
                     </ul>
 
-                    <!-- Lapozó linkek -->
                     <div class="mt-4">
                         {{ $seats->links() }}
                     </div>
                 </div>
 
-                {{-- Jobb oldal --}}
                 <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-2">
                     <h3 class="text-lg font-medium text-gray-700 mb-2">Kiválasztott szék</h3>
                     <div id="selected-seat" class="bg-white shadow rounded-lg p-6">
                         <p class="text-gray-500" id="no-seat-selected">Nincs szék kiválasztva</p>
 
-                        {{-- Form a szék módosításához --}}
                         <form id="seat-update-form" action="" method="POST" class="hidden space-y-4">
                             @csrf
                             @method('PUT')

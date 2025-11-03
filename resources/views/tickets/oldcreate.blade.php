@@ -9,7 +9,6 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
-                {{-- Esemény info --}}
                 <h3 class="text-2xl font-bold mb-2">{{ $event->title }}</h3>
                 <p class="text-gray-600 mb-2">{{ $event->event_date_at?->format('Y. m. d. H:i') }}</p>
                 <p class="mb-4">Még megvásárolható jegyek száma: {{ $event->max_number_allowed - $userTicketsCount }}</p>
@@ -20,7 +19,6 @@
                          class="w-full max-w-md rounded-lg mb-6 mx-auto">
                 @endif
 
-                {{-- Jegyvásárló űrlap --}}
                 <form action="{{ route('tickets.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="event_id" value="{{ $event->id }}">

@@ -19,13 +19,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
 
-                    {{-- Esemény infó --}}
                     <h3 class="text-2xl font-bold mb-2">{{ $event->title }}</h3>
                     <p class="text-gray-600 mb-2">{{ $event->event_date_at?->format('Y. m. d. H:i') }}</p>
                     <p class="mb-4">Még megvásárolható jegyek száma: {{ $remainingTicketsCount }} / {{ $maxTicketsCount }}</p>
 
 
-                    {{-- Borítókép --}}
                     @if ($event->cover_image)
                         <img src="{{ asset('storage/' . $event->cover_image) }}"
                             alt="{{ $event->title }}"
@@ -36,13 +34,10 @@
                         </div>
                     @endif
 
-                    {{-- Leírás --}}
                     <p class="text-gray-800 mb-6 leading-relaxed">
                         {{ $event->description }}
                     </p>
 
-
-                    {{-- Jegyvásárló űrlap --}}
                     <form action="{{ route('tickets.store') }}" method="POST" class="space-y-6">
                         @csrf
 
