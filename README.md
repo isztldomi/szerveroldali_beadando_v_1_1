@@ -60,17 +60,17 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Checklist
 
-[X] - Adatbázis és modellek 3 pont 
-[X] - Seeder 4 pont 
-[X] - Főoldal (események listája) 2 pont 
-[X] - Esemény megjelenítése 2 pont 
-[X] - Jegy vásárlása 6 pont 
-[X] - Megvásárolt jegyeim listája 2 pont 
-[X] - Irányítópult 8 pont 
-[X] - Esemény létrehozása 5 pont 
-[X] - Esemény módosítása 5 pont 
-[X] - Esemény törlése 2 pont 
-[X] - Ülőhelyek létrehozása, módosítása és törlése 4 pont 
+[X] - Adatbázis és modellek 3 pont
+[X] - Seeder 4 pont
+[X] - Főoldal (események listája) 2 pont
+[X] - Esemény megjelenítése 2 pont
+[X] - Jegy vásárlása 6 pont
+[X] - Megvásárolt jegyeim listája 2 pont
+[X] - Irányítópult 8 pont
+[X] - Esemény létrehozása 5 pont
+[X] - Esemény módosítása 5 pont
+[X] - Esemény törlése 2 pont
+[X] - Ülőhelyek létrehozása, módosítása és törlése 4 pont
 [X] - Jegykezelés 3 pont
 
 ## Szerveroldali Webalkalmazás – Telepítési Útmutató
