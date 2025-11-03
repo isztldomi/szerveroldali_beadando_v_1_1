@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\SeatController;
 use App\Http\Controllers\DashboardController;
 
 
@@ -24,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/dashboard/events/update/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/dashboard/events/delete/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/dashboard/seats', [SeatController::class, 'index'])->name('seats.index');
 
 
 
