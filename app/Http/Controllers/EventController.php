@@ -13,11 +13,20 @@ class EventController extends Controller
             ->orderBy('event_date_at', 'desc')
             ->paginate(5);
 
-        return view('events.index', compact('events'));
+        return view('events.index', [
+            'events' => $events,
+        ]);
     }
 
     public function show(Event $event)
     {
-        return view('events.show', compact('event'));
+        return view('events.show', [
+            'event' => $event,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('events.create');
     }
 }
