@@ -103,15 +103,19 @@
                                                 Módosítás
                                             </a>
 
-                                            <form action="" method="POST" {{-- {{ route('events.destroy', $event->id) }} --}}
-                                                onsubmit="return confirm('Biztosan törölni szeretnéd az eseményt?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 text-black text-sm font-medium rounded-lg shadow">
-                                                    Törlés
-                                                </button>
-                                            </form>
+
+
+                                            @if ($event->is_deletable)
+                                                <form action="{{ route('events.destroy', $event->id) }}" method="POST"> {{-- onsubmit="return confirm('Biztosan törölni szeretnéd az eseményt?');"> --}}
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 text-black text-sm font-medium rounded-lg shadow">
+                                                        Törlés
+                                                    </button>
+                                                </form>
+                                            @endif
+
                                         </div>
 
                                     </div>

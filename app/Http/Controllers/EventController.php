@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Seat;
+use App\Models\Ticket;
 
 class EventController extends Controller
 {
@@ -185,4 +187,28 @@ class EventController extends Controller
         return redirect()->route('events.edit', $event->id)->with('success', 'Az esemény sikeresen módosítva!');
     }
 
+    public function destroy($id)
+    {
+        $user = auth()->user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->with('error', 'Nincs jogosultságod események törléséhez.');
+        }
+
+        $event = Event::findOrFail($id);
+
+        $soldTickets = Ticket::where('event_id', $event->id)->count();
+
+        if ($soldTickets > 0) {
+            return back()->with('error', 'Ez az esemény nem törölhető, mert már vásároltak rá jegyeket.');
+        }
+
+        if ($event->cover_image && Storage::disk('public')->exists($event->cover_image)) {
+            Storage::disk('public')->delete($event->cover_image);
+        }
+
+        $event->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Az esemény sikeresen törölve.');
+    }
 }
