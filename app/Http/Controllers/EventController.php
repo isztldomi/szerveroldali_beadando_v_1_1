@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Seat;
 
 class EventController extends Controller
 {
@@ -20,8 +21,15 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+
+        $total = Seat::count();
+
+        $remaining = $event->remainingSeatsCount();
+
         return view('events.show', [
             'event' => $event,
+            'total' => $total,
+            'remaining' => $remaining,
         ]);
     }
 

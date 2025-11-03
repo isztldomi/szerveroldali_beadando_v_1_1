@@ -23,7 +23,6 @@ class DashboardController extends Controller
 
         $totalIncome = Ticket::sum('price');
 
-        // 3 legnépszerűbb ülőhely (seat_number) és eladott jegyek száma
         $topSeats = Ticket::select('seat_id', DB::raw('COUNT(*) as sold_count'))
             ->groupBy('seat_id')
             ->orderByDesc('sold_count')
@@ -32,7 +31,6 @@ class DashboardController extends Controller
             ->get();
 
 
-        // Legfrissebb események, 5 per oldal
         $events = DB::table('events')
             ->select('id', 'title')
             ->orderByDesc('event_date_at', 'desc')
@@ -41,15 +39,12 @@ class DashboardController extends Controller
         $total_seats = DB::table('seats')->count();
 
         foreach ($events as $event) {
-            // eladott jegyek száma
             $event->sold_tickets_count = DB::table('tickets')
                 ->where('event_id', $event->id)
                 ->count();
 
-            // szabad jegyek
             $event->available_tickets = $total_seats - $event->sold_tickets_count;
 
-            // bevétel
             $event->revenue = DB::table('tickets')
                 ->where('event_id', $event->id)
                 ->sum('price');
