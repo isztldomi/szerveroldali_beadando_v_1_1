@@ -183,6 +183,14 @@
                                 Esemény módosítása
                             </div>
                         </button>
+
+                        <a href="{{ route('dashboard') }}">
+                            <div class="bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
+                                <div class="bg-white shadow rounded-lg p-6">
+                                    Mégse
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </form>
         </div>
