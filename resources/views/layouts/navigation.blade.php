@@ -26,7 +26,7 @@
                     </x-nav-link>
 
                     @auth
-                        <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
+                        <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
                             {{ __('Megvásárolt jegyeim') }}
                         </x-nav-link>
                     @endauth
@@ -112,7 +112,7 @@
             </x-responsive-nav-link>
 
             @auth
-                <x-nav-link :href="route('tickets.my')" :active="request()->routeIs('tickets.my')">
+                <x-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')">
                     {{ __('Megvásárolt jegyeim') }}
                 </x-nav-link>
             @endauth
