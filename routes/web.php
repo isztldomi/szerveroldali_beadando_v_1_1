@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/dashboard/seats/update/{id}', [SeatController::class, 'update'])->name('seats.update');
     Route::delete('/dashboard/seats/delete/{id}', [SeatController::class, 'destroy'])->name('seats.destroy');
     Route::get('/dashboard/tickets/admission', [TicketController::class, 'admission'])->name('tickets.admission');
+    Route::post('/dashboard/tickets/admission/check', [TicketController::class, 'check'])->name('tickets.check');
 
 
 
