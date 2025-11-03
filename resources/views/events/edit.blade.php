@@ -58,10 +58,11 @@
                         </div>
 
                         <!-- Dinamikus árképzés -->
-                        <div class="bg-white shadow rounded-lg p-6 flex items-center">
+                        <div class="bg-white shadow rounded-lg p-6 flex items-center {{ $isSaleStarted ? 'opacity-70' : '' }}">
                             <input type="checkbox" name="is_dynamic_price" id="is_dynamic_price" value="1"
                                 {{ old('is_dynamic_price', $event->is_dynamic_price) ? 'checked' : '' }}
-                                class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                                {{ $isSaleStarted ? 'disabled' : '' }}>
                             <label for="is_dynamic_price" class="ml-3 block text-sm text-gray-700">
                                 Dinamikus árképzés engedélyezése
                             </label>
@@ -92,8 +93,8 @@
                             <label for="sale_start_at" class="block text-sm font-medium text-gray-700">Jegyeladás kezdete</label>
                             <input type="datetime-local" name="sale_start_at" id="sale_start_at"
                                 value="{{ old('sale_start_at', $event->sale_start_at) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm {{ $isSaleStarted ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : '' }}"
+                                {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
                         <!-- Jegyeladás vége -->
@@ -101,8 +102,8 @@
                             <label for="sale_end_at" class="block text-sm font-medium text-gray-700">Jegyeladás vége</label>
                             <input type="datetime-local" name="sale_end_at" id="sale_end_at"
                                 value="{{ old('sale_end_at', $event->sale_end_at) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm {{ $isSaleStarted ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : '' }}"
+                                {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
                         <!-- Esemény dátuma -->
@@ -110,8 +111,8 @@
                             <label for="event_date_at" class="block text-sm font-medium text-gray-700">Esemény dátuma</label>
                             <input type="datetime-local" name="event_date_at" id="event_date_at"
                                 value="{{ old('event_date_at', $event->event_date_at) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm {{ $isSaleStarted ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : '' }}"
+                                {{ $isSaleStarted ? 'disabled' : '' }} required>
                         </div>
 
                         <!-- Maximálisan vásárolható jegyek száma -->
@@ -119,8 +120,8 @@
                             <label for="max_number_allowed" class="block text-sm font-medium text-gray-700">Maximálisan vásárolható jegyek száma</label>
                             <input type="number" name="max_number_allowed" id="max_number_allowed"
                                 value="{{ old('max_number_allowed', $event->max_number_allowed) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                min="1" required>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm {{ $isSaleStarted ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : '' }}"
+                                {{ $isSaleStarted ? 'disabled' : '' }} min="1" required>
                         </div>
                     </div>
                 </div>
