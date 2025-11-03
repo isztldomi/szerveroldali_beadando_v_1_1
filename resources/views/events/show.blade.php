@@ -25,7 +25,7 @@
                 {{-- Esemény címe és dátuma --}}
                 <h1 class="text-3xl font-bold mb-2">{{ $event->title }}</h1>
                 <p class="text-gray-600 mb-6">
-                    Időpont: {{ $event->event_date_at?->format('Y. m. d. H:i') }}
+                    Időpont: {{ $event->event_date_at->format('Y. m. d. H:i') }}
                 </p>
 
                 {{-- Leírás --}}
@@ -33,18 +33,20 @@
                     {{ $event->description }}
                 </p>
 
-                {{-- Jegyek információ és gomb --}}
-                @php
-                    $total = \App\Models\Seat::count();
-                    $remaining = $event->remainingSeatsCount();
-                @endphp
-
                 <div class="mb-6">
                     <p class="text-gray-600 mb-4">
                         Szabad jegyek: <strong>{{ $remaining }} / {{ $total }}</strong>
                     </p>
 
-                    @if($remaining > 0)
+                    @if (now() < $event->sale_start_at)
+                        <span class="inline-block text-gray-500">
+                            A jegyértékesítés kezdete: {{ $event->sale_start_at->format('Y. m. d. H:i') }}
+                        </span>
+                    @elseif (now() > $event->sale_end_at)
+                        <span class="inline-block text-gray-500">
+                            A jegyértékesítés vége: {{ $event->sale_end_at->format('Y. m. d. H:i') }}
+                        </span>
+                    @elseif ($remaining > 0)
                         @auth
                             <a href="{{ route('tickets.create', ['event' => $event->id]) }}"
                             class="inline-block bg-blue-600 text-black px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition">
