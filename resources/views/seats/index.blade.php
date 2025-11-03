@@ -37,6 +37,20 @@
                             <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex justify-between"
                                 onclick="selectSeat({{ $seat->id }}, '{{ $seat->seat_number }}', {{ $seat->base_price }})">
                                 <span>{{ $seat->seat_number }}</span>
+
+
+                                <span>
+                                    @if ($seat->deletable)
+                                        <form action="{{ route('seats.destroy', $seat->id) }}" method="POST"> {{-- onsubmit="return confirm('Biztosan törölni szeretnéd a székett?');"> --}}
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-black px-3 rounded">
+                                                Törlés
+                                            </button>
+                                        </form>
+                                    @endif
+                                </span>
+
                                 <span>{{ $seat->base_price }} Ft</span>
                             </li>
                         @endforeach
@@ -59,12 +73,13 @@
                             @csrf
                             @method('PUT')
 
-                            <input type="hidden" name="seat_id" id="seat_id">
+                            <input type="hidden" name="seat_id" id="seat_id" value="{{ old('seat_id') }}">
 
                             <div>
                                 <label for="seat_number" class="block text-sm font-medium text-gray-700">Szék szám</label>
                                 <input type="text" name="seat_number" id="seat_number"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                    value="{{ old('seat_number') }}"
                                     required>
                             </div>
 
@@ -72,12 +87,16 @@
                                 <label for="base_price" class="block text-sm font-medium text-gray-700">Alap ár</label>
                                 <input type="number" name="base_price" id="base_price"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                    min="0" required>
+                                    min="0"
+                                    value="{{ old('base_price') }}"
+                                    required>
                             </div>
 
                             <button type="submit"
-                                    class="bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
-                                Szék frissítése
+                                class="bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
+                                <div class="bg-white shadow rounded-lg p-6">
+                                    Szék frissítése
+                                </div>
                             </button>
                         </form>
                     </div>
@@ -91,17 +110,14 @@
 
 <script>
     function selectSeat(id, seatNumber, basePrice) {
-        // form megjelenítése
         document.getElementById('seat-update-form').classList.remove('hidden');
         document.getElementById('no-seat-selected').style.display = 'none';
 
-        // adatok beállítása a formban
         document.getElementById('seat_id').value = id;
         document.getElementById('seat_number').value = seatNumber;
         document.getElementById('base_price').value = basePrice;
 
-        // action beállítása a formhoz (példa: /seats/{id})
-        document.getElementById('seat-update-form').action = '/dashboard/seats/' + id;
+        document.getElementById('seat-update-form').action = '/dashboard/seats/update/' + id;
     }
 </script>
 

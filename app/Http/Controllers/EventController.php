@@ -52,7 +52,7 @@ class EventController extends Controller
         $user = auth()->user();
 
         if (!$user || !$user->isAdmin()) {
-            return redirect('/')->with('error', 'Nincs jogosultságod eseményt létrehozni.');
+            return redirect('/')->withErrors('Nincs jogosultságod eseményt létrehozni.');
         }
 
         $validated = $request->validate([
@@ -112,7 +112,7 @@ class EventController extends Controller
         $user = auth()->user();
 
         if (!$user || !$user->isAdmin()) {
-            return redirect('/')->with('error', 'Nincs jogosultságod szerkeszteni.');
+            return redirect('/')->withErrors('Nincs jogosultságod szerkeszteni.');
         }
 
         $event = Event::findOrFail($id);
@@ -192,7 +192,7 @@ class EventController extends Controller
         $user = auth()->user();
 
         if (!$user || !$user->isAdmin()) {
-            return redirect('/')->with('error', 'Nincs jogosultságod események törléséhez.');
+            return redirect('/')->withErrors('Nincs jogosultságod események törléséhez.');
         }
 
         $event = Event::findOrFail($id);
@@ -200,7 +200,7 @@ class EventController extends Controller
         $soldTickets = Ticket::where('event_id', $event->id)->count();
 
         if ($soldTickets > 0) {
-            return back()->with('error', 'Ez az esemény nem törölhető, mert már vásároltak rá jegyeket.');
+            return back()->withErrors('Ez az esemény nem törölhető, mert már vásároltak rá jegyeket.');
         }
 
         if ($event->cover_image && Storage::disk('public')->exists($event->cover_image)) {
