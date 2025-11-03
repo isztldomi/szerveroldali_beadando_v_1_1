@@ -27,6 +27,13 @@ class EventController extends Controller
 
     public function create()
     {
+
+        $user = auth()->user();
+
+        if (!$user->isAdmin()) {
+            return redirect('/');
+        }
+
         return view('events.create');
     }
 }
