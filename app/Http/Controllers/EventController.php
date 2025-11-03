@@ -36,4 +36,15 @@ class EventController extends Controller
 
         return view('events.create');
     }
+
+    public function store(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user->isAdmin()) {
+            return redirect('/');
+        }
+
+        return redirect('tickets.index');
+    }
 }

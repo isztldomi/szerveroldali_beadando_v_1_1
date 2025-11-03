@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <!-- Cím -->
                     <div class="bg-white shadow rounded-lg p-6">
