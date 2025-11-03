@@ -16,7 +16,37 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+
+        // lekérdezzük azokat az eseményeket, amikhez a felhasználónak van jegye
+        $eventIds = $user->tickets()->pluck('event_id')->unique()->toArray();
+
+        // Lekérdezzük ezeket az eseményeket
+        $events = Event::whereIn('id', $eventIds)->orderBy('event_date_at', 'desc')->get();
+
+        // Betöltjük az eseményenként a user saját jegyeit
+        foreach ($events as $event) {
+            $event->userTickets = $user->tickets()
+                ->where('event_id', $event->id)
+                ->with('seat')
+                ->get()
+                ->sortBy(function ($ticket) {
+                    return $ticket->seat->seat_number;
+                })
+                ->map(function ($ticket) {
+                    $barcode = new DNS1D();
+                    $barcode->setStorPath(storage_path('framework/barcodes/'));
+
+                    // base64-es PNG kép generálása
+                    $ticket->barcodeImage = $barcode->getBarcodePNG($ticket->barcode, 'C128');
+
+                    return $ticket;
+                });
+        }
+
+        return view('tickets.index', [
+            'events' => $events,
+        ]);
     }
 
     /**
@@ -99,7 +129,7 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect()->route('tickets.my')->with('success', 'Jegyek sikeresen lefoglalva!');
+        return redirect()->route('tickets.index')->with('success', 'Jegyek sikeresen lefoglalva!');
     }
 
     // Segédfüggvény dinamikus árhoz
@@ -139,42 +169,6 @@ class TicketController extends Controller
 
         return $barcode;
     }
-
-    public function myTickets()
-    {
-        $user = auth()->user();
-
-        // lekérdezzük azokat az eseményeket, amikhez a felhasználónak van jegye
-        $eventIds = $user->tickets()->pluck('event_id')->unique()->toArray();
-
-        // Lekérdezzük ezeket az eseményeket
-        $events = Event::whereIn('id', $eventIds)->orderBy('event_date_at', 'desc')->get();
-
-        // Betöltjük az eseményenként a user saját jegyeit
-        foreach ($events as $event) {
-            $event->userTickets = $user->tickets()
-                ->where('event_id', $event->id)
-                ->with('seat')
-                ->get()
-                ->sortBy(function ($ticket) {
-                    return $ticket->seat->seat_number;
-                })
-                ->map(function ($ticket) {
-                    $barcode = new DNS1D();
-                    $barcode->setStorPath(storage_path('framework/barcodes/'));
-
-                    // base64-es PNG kép generálása
-                    $ticket->barcodeImage = $barcode->getBarcodePNG($ticket->barcode, 'C128');
-
-                    return $ticket;
-                });
-        }
-
-        return view('tickets.my-tickets', [
-            'events' => $events,
-        ]);
-    }
-
 
     /**
      * Display the specified resource.
