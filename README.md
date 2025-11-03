@@ -62,13 +62,42 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 [X] - Adatbázis és modellek 3 pont 
 [X] - Seeder 4 pont 
-[ ] - Főoldal (események listája) 2 pont 
-[ ] - Esemény megjelenítése 2 pont 
-[ ] - Jegy vásárlása 6 pont 
-[ ] - Megvásárolt jegyeim listája 2 pont 
-[ ] - Irányítópult 8 pont 
-[ ] - Esemény létrehozása 5 pont 
-[ ] - Esemény módosítása 5 pont 
-[ ] - Esemény törlése 2 pont 
-[ ] - Ülőhelyek létrehozása, módosítása és törlése 4 pont 
-[ ] - Jegykezelés 3 pont
+[X] - Főoldal (események listája) 2 pont 
+[X] - Esemény megjelenítése 2 pont 
+[X] - Jegy vásárlása 6 pont 
+[X] - Megvásárolt jegyeim listája 2 pont 
+[X] - Irányítópult 8 pont 
+[X] - Esemény létrehozása 5 pont 
+[X] - Esemény módosítása 5 pont 
+[X] - Esemény törlése 2 pont 
+[X] - Ülőhelyek létrehozása, módosítása és törlése 4 pont 
+[X] - Jegykezelés 3 pont
+
+## Szerveroldali Webalkalmazás – Telepítési Útmutató
+
+Ez a leírás bemutatja, hogyan tudod futtatni a Laravel alapú Esemény- és Jegykezelő alkalmazást Ubuntu alatt.
+
+---
+
+## 1. Rendszerkövetelmények
+
+- PHP >= 8.1
+- Composer
+- Node.js és npm
+- SQLite (vagy más adatbázis, pl. MySQL)
+- Git (opcionális)
+
+---
+
+```bash
+git clone git@github.com:isztldomi/szerveroldali_beadando_v_1_1.git
+composer install
+npm install
+npm run build
+cp .env.example .env
+touch database/database.sqlite
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan storage:link
+php artisan serve
+```
