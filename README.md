@@ -91,6 +91,7 @@ Ez a leírás bemutatja, hogyan tudod futtatni a Laravel alapú Esemény- és Je
 
 ```bash
 git clone git@github.com:isztldomi/szerveroldali_beadando_v_1_1.git
+cd szerveroldali_beadando_v_1_1
 composer install
 npm install
 npm run build
