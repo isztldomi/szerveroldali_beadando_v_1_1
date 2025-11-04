@@ -105,51 +105,44 @@
 
                     <div class="w-full sm:w-1/2 px-3 mb-6 sm:mb-0 space-y-2">
                         <h3 class="text-lg font-medium text-gray-700 mb-2">Szék létrehozása</h3>
-                        <div class="bg-white shadow rounded-lg p-6">
                             <form action="{{ route('seats.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
-    @csrf
+                                @csrf
 
-    <div>
-        <label for="seat_number" class="block text-sm font-medium text-gray-700">Szék szám</label>
-        <input
-            type="text"
-            name="seat_number"
-            id="seat_number"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            value="{{ old('seat_number') }}"
-            required
-        >
-        @error('seat_number')
-            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-        @enderror
-    </div>
+                                <div>
+                                    <label for="seat_number" class="block text-sm font-medium text-gray-700">Szék szám</label>
+                                    <input
+                                        type="text"
+                                        name="seat_number"
+                                        id="seat_number"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        value="{{ old('seat_number') }}"
+                                        required
+                                    >
+                                    @error('seat_number')
+                                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
-    <div>
-        <label for="base_price" class="block text-sm font-medium text-gray-700">Alap ár</label>
-        <input
-            type="number"
-            name="base_price"
-            id="base_price"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            min="0"
-            step="0.01"
-            value="{{ old('base_price') }}"
-            required
-        >
-        @error('base_price')
-            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-        @enderror
-    </div>
+                                <div>
+                                    <label for="base_price" class="block text-sm font-medium text-gray-700">Alap ár</label>
+                                    <input type="number" name="base_price" id="base_price"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                        min="0"
+                                        value="{{ old('base_price') }}"
+                                        required>
+                                    @error('base_price')
+                                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
-    <div class="flex justify-end">
-        <button type="submit"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            Mentés
-        </button>
-    </div>
-</form>
+                                <div class="flex justify-end">
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-indigo-600 text-black rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        Mentés
+                                    </button>
+                                </div>
+                            </form>
 
-                        </div>
                     </div>
 
                 </div>
