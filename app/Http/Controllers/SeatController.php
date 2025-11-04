@@ -82,4 +82,16 @@ class SeatController extends Controller
 
         return redirect()->route('seats.index')->with('success', 'A szék sikeresen törölve.');
     }
+
+    public function store(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->withErrors('Nincs jogosultságod eseményt létrehozni.');
+        }
+
+
+        return redirect()->route('seats.index')->with('success', 'Az esemény sikeresen létrehozva!');
+    }
 }
