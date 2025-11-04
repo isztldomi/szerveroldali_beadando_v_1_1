@@ -34,7 +34,7 @@
                                 <p class="text-gray-700"># <strong>{{ $ticket->barcode }}</strong></p>
                                 <p class="text-sm text-gray-500 mb-1">Ülőhely:</p>
                                 <p class="text-lg font-semibold mb-3">
-                                    {{ $ticket->seat?->seat_number ?? 'N/A' }}
+                                    {{ $ticket->seat->seat_number ?? 'N/A' }}
                                 </p>
                             </div>
                         </div>

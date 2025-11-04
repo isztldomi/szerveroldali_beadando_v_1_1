@@ -65,7 +65,7 @@ class TicketController extends Controller
                 ->withErrors('A jegyvásárlás már lezárult.');
         }
 
-        $availableSeatsCollection = $event->remainingSeats();
+        $availableSeatsCollection = $event->remainingSeats()->sortBy('seat_number');
         $perPage = 10;
         $page = request()->get('page', 1);
 
