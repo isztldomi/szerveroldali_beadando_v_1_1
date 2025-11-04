@@ -83,17 +83,3 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 [X] - Ülőhelyek létrehozása, módosítása és törlése 4 pont
 
 [X] - Jegykezelés 3 pont
-
-```bash
-git clone git@github.com:isztldomi/szerveroldali_beadando_v_1_1.git
-cd szerveroldali_beadando_v_1_1
-composer install
-npm install
-npm run build
-cp .env.example .env
-touch database/database.sqlite
-php artisan key:generate
-php artisan migrate:fresh --seed
-php artisan storage:link
-php artisan serve
-```
