@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/seats', [SeatController::class, 'index'])->name('seats.index');
     Route::put('/dashboard/seats/update/{id}', [SeatController::class, 'update'])->name('seats.update');
     Route::delete('/dashboard/seats/delete/{id}', [SeatController::class, 'destroy'])->name('seats.destroy');
+    Route::post('/dashboard/seats/store', [SeatController::class, 'store'])->name('seats.store');
     Route::get('/dashboard/tickets/admission', [TicketController::class, 'admission'])->name('tickets.admission');
     Route::post('/dashboard/tickets/admission/check', [TicketController::class, 'check'])->name('tickets.check');
 

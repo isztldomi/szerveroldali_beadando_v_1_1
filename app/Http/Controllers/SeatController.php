@@ -82,4 +82,25 @@ class SeatController extends Controller
 
         return redirect()->route('seats.index')->with('success', 'A szék sikeresen törölve.');
     }
+
+    public function store(Request $request)
+    {
+        $user = auth()->user();
+
+        if (!$user || !$user->isAdmin()) {
+            return redirect('/')->withErrors('Nincs jogosultságod széket létrehozni.');
+        }
+
+        $validated = $request->validate([
+            'seat_number' => 'required|string|max:10|unique:seats,seat_number',
+            'base_price'  => 'required|numeric|min:0',
+        ]);
+
+        $seat = new Seat();
+        $seat->seat_number = $validated['seat_number'];
+        $seat->base_price = $validated['base_price'];
+        $seat->save();
+
+        return redirect()->route('seats.index')->with('success', 'A szék sikeresen létrehozva!');
+    }
 }
